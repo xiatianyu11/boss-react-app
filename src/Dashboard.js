@@ -12,6 +12,10 @@ function Three(){
 }
 
 class Dashboard extends React.Component{
+	constructor(props){
+		super(props)
+		this.match = this.props.match
+	}
 	render() {
 		console.log(this.props)
 		const redirectToLogin = <Redirect to="/login"></Redirect>
@@ -19,13 +23,13 @@ class Dashboard extends React.Component{
 			<div>
 				{ this.props.isAuth? <button onClick={this.props.logout} >Logout</button>: null }
 				<ul>
-					<li><Link to="/dashboard/">test 1</Link></li>
-					<li><Link to="/dashboard/two">test 2</Link></li>
-					<li><Link to="/dashboard/three">test 3</Link></li>
+					<li><Link to={ `${this.match.path}/` }>test 1</Link></li>
+					<li><Link to={ `${this.match.path}/two` }>test 2</Link></li>
+					<li><Link to={ `${this.match.path}/three` }>test 3</Link></li>
 				</ul>
-				<Route path="/dashboard/" exact component={App} ></Route>
-				<Route path="/dashboard/two" component={Two} ></Route>
-				<Route path="/dashboard/three" component={Three} ></Route>
+				<Route path={ `${this.match.path}/` } exact component={App} ></Route>
+				<Route path={ `${this.match.path}/two` } component={Two} ></Route>
+				<Route path={ `${this.match.path}/three` } component={Three} ></Route>
 			</div>
 		)
 		return this.props.isAuth?app:redirectToLogin

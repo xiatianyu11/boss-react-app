@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import Auth from './Auth'
 import Dashboard from './Dashboard'
 import reducers from './reducers'
+import './config'
 
 const reduxDevtools = window.devToolsExtension?window.devToolsExtension():()=>{}
 const store = createStore(
