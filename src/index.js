@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import Auth from './Auth'
 import Dashboard from './Dashboard'
 import reducers from './reducers'
+import Login from './container/login/login'
+import Register from './container/register/register'
 import './config'
 
 const reduxDevtools = window.devToolsExtension?window.devToolsExtension():()=>{}
@@ -19,9 +21,8 @@ ReactDom.render((<Provider store={store} >
 		<BrowserRouter>
 			<div>
 				<Switch>
-					<Route path="/login" exact component={Auth}></Route>
-					<Route path="/dashboard" component={Dashboard}></Route>
-					<Redirect to="/dashboard" ></Redirect>
+					<Route path="/login" exact component={Login}></Route>
+					<Route path="/register" component={Register}></Route>
 				</Switch>
 			</div>
 		</BrowserRouter>
