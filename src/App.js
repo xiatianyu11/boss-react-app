@@ -2,10 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addGun, removeGun, addGunAsync } from './index.redux'
 
+
+@connect(state=>({num:state.counter}), { addGun, removeGun, addGunAsync })
 class App extends React.Component{
-	constructor(props){
-		super(props)
-	}
 	render(){
 		return (
 			<div>
@@ -14,12 +13,10 @@ class App extends React.Component{
 			<button onClick={this.props.removeGun} >-</button>
 			<button onClick={this.props.addGunAsync} >delay +</button>
 			</div>
-			)
+		)
 	}
 }
 
-const mapStateToProps = state=>{
-	return {num: state}
-}
 
-export default connect(mapStateToProps, { addGun, removeGun, addGunAsync })(App)
+
+export default App
