@@ -100,7 +100,7 @@
       [
         "import",
         {
-          "libraryName": "nbtd-mobile",
+          "libraryName": "antd-mobile",
           "style": "css"
         }
       ],

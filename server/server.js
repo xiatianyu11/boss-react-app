@@ -1,4 +1,5 @@
 const express = require('express');
+const userRouter = require('./user')
 const mongoose = require('mongoose');
 
 const DB_URL = 'mongodb://localhost:27017/hello-react';
@@ -11,27 +12,11 @@ const User = mongoose.model('user', new mongoose.Schema({
 	age: {type: Number, require: true}
 }));
 
-// User.create({
-// 	name: 'Xia',
-// 	age: 18
-// }, function(err, doc){
-// 	if(!err){
-// 		console.log(doc);
-// 	}else{
-// 		console.log(err);
-// 	}
-// });
-
-// User.deleteMany({age: 18}, function(err, doc){
-// 	if(!err){
-// 		console.log(doc)
-// 	}else{
-// 		console.log(err)
-// 	}
-// })
 
 
 const app = express();
+
+app.use('/user', userRouter)
 
 app.get('/', function(req, res){
 	res.send('Hello world');
