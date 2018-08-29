@@ -1,31 +1,25 @@
 import React from 'react'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
-import { loadData } from '../../redux/user.redux'
+import { withRouter, Redirect } from 'react-router-dom'
+import { loadData, login } from '../../redux/user.redux'
 import { connect } from 'react-redux'
 
 @withRouter
 @connect(
-	null,
-	{loadData}
+	state=> ({isAuth: state.user.isAuth, user: state.user.user, url: state.user.redirectTo}),
+	{ login, loadData }
 )
 class AuthRoute extends React.Component{
 	componentDidMount(){
-		axios.get('/user/info')
-			.then(res => {
-				if(res.status === 200){
-					console.log(res.data)
-					if(res.data.code === 0){
-						this.props.loadData(res.data.data)
-					}else{
-						
-						this.props.history.push('/login')
-					}
-				}
-			})
+		this.props.loadData()
 	}
-	render(){
-		return <p>判断跳转的地方</p>
+	render() {
+		console.log('======', this.props)
+		return (
+			<div>
+				{this.props.url?<Redirect to={this.props.url} />:null}
+			</div>
+		)
 	}
 }
 

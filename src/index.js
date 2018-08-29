@@ -10,6 +10,7 @@ import reducers from './reducers'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import AuthRoute from './component/authroute/auth'
+import BossInfo from './container/bossinfo/bossinfo'
 import './config'
 
 const reduxDevtools = window.devToolsExtension?window.devToolsExtension():()=>{}
@@ -23,6 +24,7 @@ ReactDom.render((<Provider store={store} >
 			<div>
 				<AuthRoute></AuthRoute>
 				<Switch>
+					<Route path="/boss/info" component={BossInfo}></Route>
 					<Route path="/login" exact component={Login}></Route>
 					<Route path="/register" component={Register}></Route>
 				</Switch>

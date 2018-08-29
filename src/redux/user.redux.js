@@ -21,7 +21,7 @@ export function user(state=initState, action){
 		case LOGIN_SUCCESS:
 			return {...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload}
 		case LOAD_DATA:
-			return {...state, ...action.payload}
+			return {...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload}
 		case ERROR_MSG:
 			return {...state, msg: action.msg, isAuth: false}
 		default:
@@ -33,8 +33,18 @@ function errorMsg(msg){
 	return {msg, type: ERROR_MSG}
 }
 
-export function loadData(userinfo){
-	return {type: LOAD_DATA, payload: userinfo}
+export function loadData(){
+	return dispatch=>{
+		axios.get('/user/info')
+		.then(res => {
+			if(res.status === 200 && res.data.code === 0){
+				const {user, pwd, type} = res.data.data
+				dispatch({type: LOAD_DATA, payload: {user, pwd, type}})
+			}else{
+				dispatch(errorMsg(res.data.msg))
+			}
+		})
+	}
 }
 
 export function login({user, pwd}){
@@ -45,13 +55,14 @@ export function login({user, pwd}){
 		axios.post('/user/login', {user, pwd})
 		.then(res => {
 			if(res.status === 200 && res.data.code === 0){
-				dispatch({type: LOGIN_SUCCESS, payload: {user, pwd}})
+				dispatch({type: LOGIN_SUCCESS, payload: {user, pwd, type: res.data.data.type} })
 			}else{
 				dispatch(errorMsg(res.data.msg))
 			}
 		})
 	}
 }
+
 export function register({user, pwd, repeatpwd,type}){
 	if(!user || !pwd || !type){
 		return errorMsg('用户名密码必须输入')
