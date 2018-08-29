@@ -9,6 +9,7 @@ const path = require('path')
 const app = express();
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+io.listen(9094)
 
 const Chat = model.getModel('chat')
 io.on('connection', function (socket) {

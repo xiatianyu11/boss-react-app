@@ -16,13 +16,6 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.getMsgList()
-    // socket.on('recvmsg', (data) => {
-    //   console.log(data)
-    //   this.setState({
-    //     msg: [...this.state.msg, data.text]
-    //   })
-    // })
     if (!this.props.chat.chatmsg.length) {
       this.props.getMsgList()
       this.props.recvMsg()
@@ -41,8 +34,6 @@ class Chat extends React.Component {
   }
 
   handleSubmit() {
-    // socket.emit('sendmsg', {text: this.state.text})
-    // this.setState({text:''})
     const from = this.props.user._id
     const to = this.props.match.params.user
     const msg = this.state.text
