@@ -1,22 +1,33 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { addGun, removeGun, addGunAsync } from './index.redux'
+import {
+  Route,
+  Switch
+} from 'react-router-dom'
+import Register from "./container/register/register"
+import AuthRoute from './component/authroute/authroute'
+import GeniusInfo from "./container/geniusinfo/geniusinfo"
+import Login from "./container/login/login"
+import Dashboard from "./component/dashboard/dashboard"
+import BossInfo from "./container/bossinfo/bossinfo"
+import Chat from "./component/chat/chat"
 
-
-@connect(state=>({num:state.counter}), { addGun, removeGun, addGunAsync })
-class App extends React.Component{
-	render(){
-		return (
-			<div>
-			<h1>now has gun {this.props.num}</h1>
-			<button onClick={this.props.addGun} >+</button>
-			<button onClick={this.props.removeGun} >-</button>
-			<button onClick={this.props.addGunAsync} >delay +</button>
-			</div>
-		)
-	}
+class App extends React.Component {
+  render() {
+    return (
+        <div>
+          <AuthRoute/>
+          <Switch>
+            <Route path='/bossinfo' component={BossInfo}/>
+            <Route path='/geniusinfo' component={GeniusInfo}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+            <Route path='/chat/:user' component={Chat}/>
+            {/* similar 404 page */}
+            <Route component={Dashboard}/>
+          </Switch>
+        </div>
+    )
+  }
 }
-
-
 
 export default App
